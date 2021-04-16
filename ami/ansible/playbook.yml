@@ -1,0 +1,72 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: no
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  pre_tasks:
+    - name: update apt cache if needed
+      apt:
+        update_cache=yes
+        cache_valid_time=3600
+  tasks:
+    #Install elasticsearch
+    - name: Download Elastic Deb Package
+      get_url:
+        url: https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.6.2-amd64.deb
+        dest: /etc
+    - name: Install Elastic Deb Package
+      apt:
+        deb: /etc/elasticsearch-7.6.2-amd64.deb 
+    - name: Copiando arquivo elasticsearch
+      copy: src=template/elasticsearch.yml dest=/etc/elasticsearch/elasticsearch.yml
+
+    - name: Start ElasticSearch Service
+      service:
+        name: elasticsearch
+        state: started
+        enabled: yes
+        
+    #Install kibana
+    - name: Download Kibana Deb Package
+      get_url:
+        url: https://artifacts.elastic.co/downloads/kibana/kibana-7.6.2-amd64.deb
+        dest: /etc
+    - name: Install Kibana Deb Package
+      apt:
+        deb: /etc/kibana-7.6.2-amd64.deb
+    - name: Copiando arquivo elasticsearch
+      copy: src=template/kibana.yml dest=/etc/kibana/kibana.yml
+    - name: Start Kibana Service
+      service:
+        name: kibana
+        state: started
+        enabled: yes
+    - name: Wait for port 5601 to become open on the host, don't start checking for 10 seconds
+      wait_for:
+        port: 5601
+        delay: 10
+    #Install metricbeat
+    - name: Download Metricbeat Deb Package
+      get_url:
+        url: https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.12.0-amd64.deb
+        dest: /etc
+    - name: Install Metricbeat Deb Package
+      apt:
+        deb: /etc/metricbeat-7.12.0-amd64.deb
+    - name: Copiando arquivo metricbeat
+      copy: src=template/metricbeat.yml dest=/etc/metricbeat/metricbeat.yml
+
+    - name: Permission file metricbeat
+      shell: sudo chown root /etc/metricbeat/metricbeat.yml 
+      become: yes   
+    - name: Permission file system.yml
+      shell: sudo chown root /etc/metricbeat/modules.d/system.yml
+      become: yes
+    - name: start module system 
+      shell: sudo metricbeat modules enable system
+      become: yes
+    # - name: metricbeat setup
+    #   shell: sudo metricbeat setup
+    #   become: yes
+    # é preciso da o metricbeat setup para aparece o index no kiban
