@@ -58,15 +58,27 @@
       copy: src=template/metricbeat.yml dest=/etc/metricbeat/metricbeat.yml
 
     - name: Permission file metricbeat
-      shell: sudo chown root /etc/metricbeat/metricbeat.yml 
+      shell: chown root /etc/metricbeat/metricbeat.yml 
       become: yes   
+      become_user: root
+
     - name: Permission file system.yml
-      shell: sudo chown root /etc/metricbeat/modules.d/system.yml
+      shell: chown root /etc/metricbeat/modules.d/system.yml
       become: yes
+      become_user: root
+
     - name: start module system 
-      shell: sudo metricbeat modules enable system
+      shell: metricbeat modules enable system
       become: yes
-    # - name: metricbeat setup
-    #   shell: sudo metricbeat setup
-    #   become: yes
+      become_user: root
+
+    - name: metricbeat setup
+      shell: nohup metricbeat setup </dev/null >/dev/null 2>&1 &
+      become: yes
+      become_user: root
+
+    - name: metricbeat setup
+      shell: service metricbeat start
+      become: yes
+      become_user: root
     # é preciso da o metricbeat setup para aparece o index no kiban
