@@ -1,7 +1,3 @@
-variable "ami_name" {
-  type    = string
-  default = "my-custom-ami"
-}
 variable "inst_type" {
     type    = string
     default = "t2.medium"

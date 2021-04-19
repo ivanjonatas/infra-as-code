@@ -1,10 +1,8 @@
-module "group" {
-    source = "./security"
-}
-
 module "instance" {
     source = "./ec2"
-    # inst_sg = module.group.id_sg
-    inst_ami = "ami-06811e965f658e79b"
+    inst_ami = "ami-07b200e1d15856de9"
+    inst_type = "t2.medium"
+    inst_subnet = "subnet-f5ed6793"
+    inst_sg = ["sg-d9a130d1"]
     inst_key = "k8s"
 }

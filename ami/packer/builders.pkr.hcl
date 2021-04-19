@@ -1,5 +1,5 @@
 source "amazon-ebs" "ami_elk" {
-  ami_name      = "packer example ${local.timestamp}"
+  ami_name      = "ami_stack_elk ${local.timestamp}"
   instance_type = "${var.inst_type}"
   region        = "${var.inst_region}"
   source_ami_filter {

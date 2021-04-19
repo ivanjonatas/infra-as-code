@@ -6,7 +6,7 @@ resource "aws_instance" "web"{
     security_groups = var.inst_sg
 
     tags = {
-      Name = "Instancia-terraform"
+      Name = "Instancia-Stack-ELK"
     }
     root_block_device {
         volume_type           = "gp2"
