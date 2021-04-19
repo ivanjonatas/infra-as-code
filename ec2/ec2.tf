@@ -4,6 +4,7 @@ resource "aws_instance" "web"{
     instance_type   = var.inst_type
     subnet_id       = var.inst_subnet
     security_groups = var.inst_sg
+    user_data       = file("start-metricbeat.sh")
 
     tags = {
       Name = "Instancia-Stack-ELK"
