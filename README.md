@@ -2,7 +2,7 @@
 
 ## Objetivo do projeto
 
-Esse projeto tem a intenção de demostra como subir uma instância com a stack elk ja instalada usando o conceito de Infrastructure as Code.
+Esse projeto tem a intenção de demostra como subir uma instância com a stack elk ja instalada usando o conceito de **Infrastructure as Code**.
 
 ## Tecnologias usadas
 
@@ -19,7 +19,7 @@ Esse projeto tem a intenção de demostra como subir uma instância com a stack 
 
 ## Executando o projeto passo a passo
 
-1 - Criando uma _AMI_ com a stack elk e o metricbeat instalado;
+### Criando uma _AMI_ com a stack elk e o metricbeat instalado;
 
 - Entre na pasta _AMI_ e execute o seguinte comando:
 ```shell
@@ -38,7 +38,7 @@ Executando esse comando o packer fara o seguinte processo:
 - Criara a imagem com a snapshot;
 - Após a imagem criada irá deleta o que foi criado.
 
-2 - Subindo uma instância com AMI criada.
+## Subindo uma instância com AMI criada.
 
 Após o processo do packer ser finalizado sera possivel encontra no log o id da _AMI_ criada. 
 
