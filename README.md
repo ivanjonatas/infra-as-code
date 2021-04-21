@@ -13,6 +13,9 @@ Esse projeto tem a intenção de demostra como subir uma instancia com a stack e
 - Stack ELK;
 - Metricbeats.
 
+## Projeto
+![image info](imagens/projeto.png)
+
 
 ## Executando o projeto passo a passo
 
