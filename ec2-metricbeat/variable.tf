@@ -17,3 +17,7 @@ variable "inst_subnet"{
 variable "inst_sg" {
     type = list(any)
 }
+
+variable "inst_number" {
+    type = number
+}

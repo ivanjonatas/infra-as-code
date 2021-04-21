@@ -1,4 +1,5 @@
 resource "aws_instance" "metricbeat"{
+    count           = var.inst_number
     ami             = var.inst_ami
     key_name        = var.inst_key
     instance_type   = var.inst_type
