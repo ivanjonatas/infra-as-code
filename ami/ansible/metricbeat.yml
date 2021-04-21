@@ -1,0 +1,32 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: no
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+  #Install metricbeat
+    - name: Download Metricbeat
+      get_url:
+        url: https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.12.0-amd64.deb
+        dest: /etc
+
+    - name: Install Metricbeat
+      apt:
+        deb: /etc/metricbeat-7.12.0-amd64.deb
+
+    - name: Copying metricbeat template
+      copy: src=template/metricbeat.yml dest=/etc/metricbeat/metricbeat.yml
+
+  # start metricbeat
+    - name: Permission metricbeat file metricbeat.yml
+      file:
+        path: /etc/metricbeat/metricbeat.yml 
+        owner: root
+        group: root
+
+    - name: Permission metricbeat file system.yml
+      file:
+        path: /etc/metricbeat/modules.d/system.yml
+        owner: root
+        group: root

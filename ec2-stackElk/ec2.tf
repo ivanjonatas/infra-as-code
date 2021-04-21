@@ -1,8 +1,9 @@
-resource "aws_instance" "web"{
+resource "aws_instance" "elk"{
     ami             = var.inst_ami
     key_name        = var.inst_key
     instance_type   = var.inst_type
     subnet_id       = var.inst_subnet
+    private_ip      = "172.31.0.12"
     security_groups = var.inst_sg
     user_data       = file("start-metricbeat.sh")
 
